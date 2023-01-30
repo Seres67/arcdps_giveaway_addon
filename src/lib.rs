@@ -102,13 +102,12 @@ fn remove_player_from_squad(plugin: &mut MutexGuard<Plugin>, name: &str)
 fn imgui(ui: &Ui, _not_loading_or_character_selection: bool)
 {
     let mut plugin = PLUGIN.lock().unwrap();
-    imgui::Window::new("##giveaway-window").build(ui, || {
+    imgui::Window::new("Giveaway##giveaway-window").build(ui, || {
+        ui.text(String::from("Number of players in squad:") + plugin.squad.len().to_string().as_str());
+        ui.text(String::from("Picked player: ") + plugin.winner.clone().as_str());
         if ui.button("Pick player") {
             pick_random_player(&mut plugin);
         }
-        ui.text("Giveaway Addon");
-        ui.text(String::from("Number of players in squad:") + plugin.squad.len().to_string().as_str());
-        ui.text(String::from("Picked player: ") + plugin.winner.clone().as_str());
     });
 }
 
